@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI CRM Demo (Real Estate)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --ink: #0f172a;
+        --muted: #475569;
+        --line: #dbe4ef;
+        --mint: #0f766e;
+        --cream: #f4efe5;
+      }
+      body {
+        font-family: "Manrope", sans-serif;
+        background:
+          radial-gradient(circle at 10% 5%, #dbeafe 0%, transparent 38%),
+          radial-gradient(circle at 85% 15%, #fae8ff 0%, transparent 36%),
+          linear-gradient(180deg, #f7fafc 0%, #edf2f7 100%);
+      }
+      .display-serif {
+        font-family: "Playfair Display", serif;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--line);
+      }
+      .elevate {
+        transition: transform 220ms ease, box-shadow 220ms ease;
+      }
+      .elevate:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 32px rgba(15, 23, 42, 0.1);
+      }
+      .fade-in {
+        animation: fadeInUp 520ms ease both;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="text-slate-900 min-h-screen relative overflow-x-hidden">
+    <div class="pointer-events-none absolute -left-24 top-24 h-56 w-56 rounded-full bg-cyan-200/40 blur-3xl"></div>
+    <div class="pointer-events-none absolute right-0 top-48 h-72 w-72 rounded-full bg-rose-200/30 blur-3xl"></div>
+    <header class="border-b border-white/70 bg-white/70 backdrop-blur-md sticky top-0 z-30">
+      <div class="mx-auto w-full max-w-[1500px] px-6 lg:px-10 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-6">
+          <div class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-indigo-600 text-white text-sm font-bold">
+            AC
+          </div>
+          <div>
+            <h1 class="text-xl font-extrabold cursor-pointer tracking-tight" id="headerHome">
+              AI CRM Demo
+            </h1>
+            <p class="text-xs text-slate-600">AI-powered Real Estate CRM</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button
+            id="headerDashboard"
+            class="hidden rounded-xl bg-white/80 border border-slate-200 px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 elevate"
+          >
+            Dashboard
+          </button>
+          <div class="relative group">
+            <button
+              id="headerProfile"
+              class="rounded-full bg-slate-900 text-white px-3 py-2 text-xs sm:text-sm font-semibold flex items-center gap-2 elevate"
+            >
+              <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-800 text-[11px]">
+                A
+              </span>
+              <span id="profileLabel" class="hidden sm:inline">Admin login</span>
+            </button>
+            <div
+              id="profileMenu"
+              class="absolute right-0 top-full z-20 w-40 rounded-xl border border-slate-200 bg-white shadow-lg text-sm py-1 hidden"
+            >
+              <button
+                id="menuLogout"
+                class="block w-full text-left px-3 py-2 hover:bg-slate-50 hidden"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto w-full max-w-[1500px] px-6 lg:px-10 py-6">
+      <!-- Landing Page -->
+      <section id="pageHome" class="space-y-10 fade-in">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+          <div class="lg:col-span-3 space-y-6">
+            <div>
+              <p class="text-xs font-bold tracking-[0.25em] text-teal-700 mb-3">
+                AI-POWERED REAL ESTATE CRM
+              </p>
+              <h2 class="text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight text-slate-900 mb-4">
+                Find the right property <span class="display-serif italic text-cyan-700">faster</span>, with
+                conversational search.
+              </h2>
+              <p class="text-base text-slate-700 max-w-3xl">
+                A modern CRM workspace that keeps inventory organized while translating natural language into
+                real, auditable filters on your property database.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="glass rounded-xl p-3 elevate">
+                <p class="text-xs text-slate-500">Cities</p>
+                <p class="text-lg font-extrabold">10+</p>
+              </div>
+              <div class="glass rounded-xl p-3 elevate">
+                <p class="text-xs text-slate-500">NLP Search</p>
+                <p class="text-lg font-extrabold">Real-time</p>
+              </div>
+              <div class="glass rounded-xl p-3 elevate">
+                <p class="text-xs text-slate-500">Admin Flow</p>
+                <p class="text-lg font-extrabold">CRUD-ready</p>
+              </div>
+              <div class="glass rounded-xl p-3 elevate">
+                <p class="text-xs text-slate-500">Data Safety</p>
+                <p class="text-lg font-extrabold">Scoped</p>
+              </div>
+            </div>
+
+            <div class="glass rounded-2xl p-4 sm:p-5 flex flex-col gap-3">
+              <label class="text-xs font-bold tracking-wide text-slate-700">Search properties</label>
+              <div class="flex gap-2">
+                <input
+                  id="homeSearch"
+                  class="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
+                  placeholder='Try "villas under 1 crore in Mumbai"'
+                />
+                <button
+                  id="homeSearchBtn"
+                  class="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white elevate"
+                >
+                  Search
+                </button>
+              </div>
+              <p id="homeSearchMsg" class="text-xs text-slate-600">
+                Press Enter to search or clear the field to see all listings.
+              </p>
+              <div id="homeLoader" class="hidden items-center gap-2 text-xs text-slate-600">
+                <span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-slate-700"></span>
+                Processing query...
+              </div>
+              <p id="homeResultCount" class="text-xs text-slate-700 font-semibold"></p>
+              <p id="homeNlpSource" class="text-xs text-slate-600"></p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-2 flex flex-col gap-4">
+            <div class="relative overflow-hidden rounded-2xl border border-white/60 h-64 lg:h-72 elevate">
+              <img
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80"
+                alt="Modern residential skyline"
+                class="h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent p-5 flex items-end">
+                <p class="text-white text-sm font-semibold">Smart inventory meets AI search intelligence.</p>
+              </div>
+            </div>
+            <div class="glass rounded-2xl p-5 space-y-3 elevate">
+              <h3 class="text-sm font-extrabold text-slate-900">Why this demo?</h3>
+              <p class="text-sm text-slate-700">
+                AI search is isolated from DB access, so your team gets conversational UX without compromising on
+                architecture clarity.
+              </p>
+              <ul class="space-y-2 text-sm text-slate-700">
+                <li><span class="font-semibold">Admin-first:</span> add, edit, and clean listings quickly.</li>
+                <li><span class="font-semibold">Buyer-ready:</span> natural language queries in seconds.</li>
+                <li><span class="font-semibold">Extensible:</span> schema-safe filter pipeline.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="glass rounded-2xl p-5 elevate">
+            <p class="text-xs font-bold text-teal-700 mb-2 tracking-wide">FOR ADMINS</p>
+            <h3 class="text-base font-extrabold mb-2">Inventory in one place</h3>
+            <p class="text-sm text-slate-700">
+              Capture location, price, area, type, and narrative details in a clean operating surface.
+            </p>
+          </div>
+          <div class="glass rounded-2xl p-5 elevate">
+            <p class="text-xs font-bold text-teal-700 mb-2 tracking-wide">FOR BUYERS</p>
+            <h3 class="text-base font-extrabold mb-2">Search how people speak</h3>
+            <p class="text-sm text-slate-700">
+              Convert intent like "sea-view villas under 2 crore" into robust, validated filters.
+            </p>
+          </div>
+          <div class="glass rounded-2xl p-5 elevate">
+            <p class="text-xs font-bold text-teal-700 mb-2 tracking-wide">FOR TEAMS</p>
+            <h3 class="text-base font-extrabold mb-2">Architecture you can trust</h3>
+            <p class="text-sm text-slate-700">
+              AI and repository layers stay separated, making behavior easier to audit and evolve.
+            </p>
+          </div>
+        </div>
+
+        <div class="glass rounded-2xl p-5 sm:p-6 space-y-3">
+          <h3 class="text-base font-extrabold mb-1">Search results</h3>
+          <p class="text-xs text-slate-600">Results update whenever you run a natural-language query.</p>
+          <div id="homeResults" class="flex gap-4 overflow-x-auto pb-2"></div>
+        </div>
+      </section>
+
+      <!-- Admin Login Page -->
+      <section id="pageAdminLogin" class="hidden py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <div class="relative overflow-hidden rounded-3xl border border-white/70 min-h-[420px] elevate">
+            <img
+              src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80"
+              alt="Real estate admin interface mood"
+              class="h-full w-full object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-tr from-slate-950/75 via-slate-900/35 to-cyan-900/20 p-8 flex flex-col justify-end">
+              <p class="text-xs tracking-[0.2em] font-bold text-cyan-200 mb-2">ADMIN DASHBOARD ACCESS</p>
+              <h2 class="text-3xl font-extrabold text-white mb-2">Manage listings with precision.</h2>
+              <p class="text-sm text-slate-100/90">
+                Secure demo login for inventory operations. Public users can still browse and search.
+              </p>
+            </div>
+          </div>
+
+          <div class="glass rounded-3xl p-6 sm:p-8 space-y-5 fade-in">
+            <h3 class="text-2xl font-extrabold">Sign in to Admin</h3>
+            <p class="text-sm text-slate-600">Use demo credentials to open listing operations.</p>
+            <form id="adminLoginForm" class="space-y-4">
+              <div>
+                <label class="text-sm font-semibold text-slate-700">Email</label>
+                <input
+                  id="adminEmail"
+                  type="email"
+                  class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
+                  placeholder="admin@example.com"
+                />
+              </div>
+              <div>
+                <label class="text-sm font-semibold text-slate-700">Password</label>
+                <input
+                  id="adminPassword"
+                  type="password"
+                  class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/40"
+                  placeholder="••••••••"
+                />
+              </div>
+              <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+                <button
+                  type="submit"
+                  class="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white elevate"
+                >
+                  Login as admin
+                </button>
+                <p class="text-xs text-slate-600">
+                  Demo credentials:
+                  <span class="font-mono font-semibold">admin@example.com / admin123</span>
+                </p>
+              </div>
+              <p id="loginMsg" class="text-sm text-rose-600"></p>
+            </form>
+            <button
+              id="adminBackHome"
+              class="text-xs text-slate-600 hover:text-slate-900 underline"
+            >
+              ← Back to landing page
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Admin Dashboard Page -->
+      <section id="pageAdmin" class="hidden space-y-6">
+        <div class="relative overflow-hidden rounded-3xl border border-white/70 h-44 elevate">
+          <img
+            src="https://images.unsplash.com/photo-1560184897-ae75f418493e?auto=format&fit=crop&w=1600&q=80"
+            alt="Admin dashboard banner"
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 to-slate-900/20 p-6 sm:p-8 flex flex-col justify-end">
+            <p class="text-xs tracking-[0.2em] text-cyan-200 font-bold mb-1">OPERATIONS CONSOLE</p>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Admin dashboard</h2>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="glass rounded-2xl p-5 sm:p-6">
+            <h2 class="text-lg font-extrabold mb-4">Add / Update Property</h2>
+
+            <form id="propertyForm" class="space-y-3">
+              <input type="hidden" id="propertyId" />
+
+              <div>
+                <label class="text-sm font-semibold text-slate-700">Title</label>
+                <input id="title" class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm" />
+                <p id="err_title" class="mt-1 text-xs text-rose-600"></p>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="text-sm font-semibold text-slate-700">Location</label>
+                  <input id="location" class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm" />
+                  <p id="err_location" class="mt-1 text-xs text-rose-600"></p>
+                </div>
+                <div>
+                  <label class="text-sm font-semibold text-slate-700">Type</label>
+                  <select id="property_type" class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
+                    <option>Apartment</option>
+                    <option>Villa</option>
+                    <option>Plot</option>
+                  </select>
+                  <p id="err_property_type" class="mt-1 text-xs text-rose-600"></p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="text-sm font-semibold text-slate-700">Price (INR)</label>
+                  <input
+                    id="price"
+                    type="number"
+                    class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                  />
+                  <p id="err_price" class="mt-1 text-xs text-rose-600"></p>
+                </div>
+                <div>
+                  <label class="text-sm font-semibold text-slate-700">Area (sqft)</label>
+                  <input
+                    id="area_sqft"
+                    type="number"
+                    class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                  />
+                  <p id="err_area_sqft" class="mt-1 text-xs text-rose-600"></p>
+                </div>
+              </div>
+
+              <div>
+                <label class="text-sm font-semibold text-slate-700">Description</label>
+                <textarea
+                  id="description"
+                  rows="3"
+                  class="mt-1 w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                ></textarea>
+                <p id="err_description" class="mt-1 text-xs text-rose-600"></p>
+              </div>
+
+              <div class="flex flex-wrap gap-2 pt-2">
+                <button
+                  type="submit"
+                  class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white elevate"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  id="resetForm"
+                  class="rounded-xl bg-white border border-slate-200 px-4 py-2 text-sm font-semibold elevate"
+                >
+                  Reset
+                </button>
+              </div>
+              <p id="adminMsg" class="text-sm text-slate-600"></p>
+            </form>
+          </div>
+
+          <div class="glass rounded-2xl p-5 sm:p-6 flex flex-col">
+            <div class="flex items-center justify-between mb-4 flex-none">
+              <h2 class="text-lg font-extrabold">All Properties</h2>
+              <button
+                id="refreshAdmin"
+                class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-sm font-semibold elevate"
+              >
+                Refresh
+              </button>
+            </div>
+            <div
+              id="adminList"
+              class="space-y-3 overflow-y-auto pr-1 max-h-[60vh]"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- User Page -->
+      <section id="pageUser" class="hidden space-y-6">
+        <div class="relative overflow-hidden rounded-3xl border border-white/70 h-40 elevate">
+          <img
+            src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&w=1600&q=80"
+            alt="User search banner"
+            class="h-full w-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-900/75 to-slate-900/20 p-6 flex flex-col justify-end">
+            <h2 class="text-2xl font-extrabold text-white">Buyer Workspace</h2>
+            <p class="text-sm text-slate-100">Listings and AI assistant in one interactive pane.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="glass rounded-2xl p-5 sm:p-6 flex flex-col">
+            <div class="flex items-center justify-between mb-4 flex-none">
+              <h2 class="text-lg font-extrabold">Listings</h2>
+              <button
+                id="refreshUser"
+                class="rounded-xl bg-white border border-slate-200 px-3 py-2 text-sm font-semibold elevate"
+              >
+                Refresh
+              </button>
+            </div>
+            <div
+              id="userList"
+              class="space-y-3 overflow-y-auto pr-1 max-h-[60vh]"
+            ></div>
+          </div>
+
+          <div class="glass rounded-2xl p-5 sm:p-6">
+            <h2 class="text-lg font-extrabold mb-2">AI Chat</h2>
+            <p class="text-sm text-slate-600 mb-4">
+              Ask like: “Show me villas under 1 crore in Mumbai” or “Apartments in Delhi above 1200 sqft”.
+            </p>
+
+            <div class="space-y-3">
+              <textarea
+                id="chatInput"
+                rows="3"
+                class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm"
+                placeholder="Type your property query..."
+              ></textarea>
+              <div class="flex gap-2">
+                <button
+                  id="sendChat"
+                  class="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white elevate"
+                >
+                  Send
+                </button>
+                <button
+                  id="clearChat"
+                  class="rounded-xl bg-white border border-slate-200 px-4 py-2 text-sm font-semibold elevate"
+                >
+                  Clear
+                </button>
+              </div>
+              <div id="chatLoader" class="hidden items-center gap-2 text-xs text-slate-600">
+                <span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-slate-700"></span>
+                Processing query...
+              </div>
+              <p id="chatResultCount" class="text-xs text-slate-600"></p>
+              <p id="chatNlpSource" class="text-xs text-slate-600"></p>
+              <p id="chatMsg" class="text-sm text-slate-600"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
