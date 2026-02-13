@@ -1,5 +1,14 @@
 # AI CRM Demo (Real Estate)
 
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi)
+![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?logo=sqlite)
+![Render](https://img.shields.io/badge/Deployed%20on-Render-5B3DF5?logo=render)
+![AI](https://img.shields.io/badge/AI-NLP%20Search-111827)
+
+## Live Demo
+
+- 🌐 Frontend: https://ai-crm-web.onrender.com/
+
 Modern AI-assisted real estate CRM demo with two workflows:
 
 - Admin workflow for creating and managing property inventory
@@ -30,7 +39,7 @@ This project demonstrates how to use an LLM safely in a data product:
 5. SQLAlchemy query executes against SQLite
 6. UI displays matched properties, total result count, and NLP engine source
 
-### NLP engine behavior
+### NLP Engine Behavior
 
 - Preferred path: `LLM` (Perplexity or OpenAI provider)
 - Fallback path: `Heuristic` parser when no valid provider key is configured or provider call fails
