@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: ai-crm-api
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: PERPLEXITY_MODEL
+        value: sonar-pro
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+
+  - type: static
+    name: ai-crm-web
+    rootDir: frontend
+    buildCommand: |
+      if [ -n "$BACKEND_URL" ]; then
+        printf "window.__API_BASE__ = \"%s\";\n" "$BACKEND_URL" > render-config.js
+      fi
+    staticPublishPath: .
+    envVars:
+      - key: BACKEND_URL
+        sync: false

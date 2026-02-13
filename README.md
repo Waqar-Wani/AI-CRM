@@ -158,6 +158,59 @@ Open:
 - Frontend: `http://127.0.0.1:5173`
 - Backend: `http://127.0.0.1:8000`
 
+## Deploy on Render
+
+You have two services:
+
+- Backend API (`ai-crm-api`) as a **Web Service**
+- Frontend UI (`ai-crm-web`) as a **Static Site**
+
+This repo now includes `render.yaml` so you can use Render Blueprint deploy.
+
+### Option A: Blueprint (recommended)
+
+1. In Render, click **New +** -> **Blueprint**
+2. Select repo: `Waqar-Wani/AI-CRM`
+3. Render reads `render.yaml` and creates:
+   - `ai-crm-api` (web)
+   - `ai-crm-web` (static)
+4. Set environment variables:
+   - On `ai-crm-api`:
+     - `PERPLEXITY_API_KEY=<your_key>`
+     - Optional: `PERPLEXITY_MODEL=sonar-pro`
+   - On `ai-crm-web`:
+     - `BACKEND_URL=https://<your-api-service>.onrender.com`
+
+### Option B: Manual forms (your current screen)
+
+If creating manually from **New Static Site**, use these values for frontend:
+
+- `Name`: `ai-crm-web`
+- `Branch`: `main`
+- `Root Directory`: `frontend`
+- `Build Command`:
+
+```bash
+if [ -n "$BACKEND_URL" ]; then
+  printf "window.__API_BASE__ = \"%s\";\n" "$BACKEND_URL" > render-config.js
+fi
+```
+
+- `Publish Directory`: `.`
+- Environment variable:
+  - `BACKEND_URL=https://<your-backend>.onrender.com`
+
+Then create backend separately as **Web Service**:
+
+- `Name`: `ai-crm-api`
+- `Branch`: `main`
+- `Root Directory`: `backend`
+- `Build Command`: `pip install -r requirements.txt`
+- `Start Command`: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- Environment variables:
+  - `PERPLEXITY_API_KEY=<your_key>` (or `OPENAI_API_KEY`)
+  - Optional model vars (`PERPLEXITY_MODEL`, `OPENAI_MODEL`)
+
 ## Quick Demo Script
 
 1. Open landing page and run search queries

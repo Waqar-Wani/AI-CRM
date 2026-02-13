@@ -1,6 +1,9 @@
 function getApiBase() {
-  const el = document.getElementById("apiBase");
-  return (el?.value || "http://127.0.0.1:8000").replace(/\/+$/, "");
+  const runtimeBase =
+    typeof window !== "undefined" && typeof window.__API_BASE__ === "string"
+      ? window.__API_BASE__
+      : "";
+  return (runtimeBase || "http://127.0.0.1:8000").replace(/\/+$/, "");
 }
 
 async function api(path, options = {}) {
