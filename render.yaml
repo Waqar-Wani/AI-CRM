@@ -15,13 +15,12 @@ services:
       - key: OPENAI_MODEL
         value: gpt-4o-mini
 
-  - type: static
+  - type: web
     name: ai-crm-web
+    env: static
     rootDir: frontend
-    buildCommand: |
-      if [ -n "$BACKEND_URL" ]; then
-        printf "window.__API_BASE__ = \"%s\";\n" "$BACKEND_URL" > render-config.js
-      fi
+    buildCommand: >
+      if [ -n "$BACKEND_URL" ]; then printf 'window.__API_BASE__ = "%s";\n' "$BACKEND_URL" > render-config.js; fi
     staticPublishPath: .
     envVars:
       - key: BACKEND_URL
